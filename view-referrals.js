@@ -104,40 +104,6 @@ function closeMenu() {
   overlay.classList.remove("show");
 }
 
-// Filter event listener ----------------------
-document.getElementById("monthFilter").addEventListener("change", function () {
-
-  const selectedMonth = this.value;
-
-  if (!selectedMonth) {
-    renderTable(allSeeds);
-    return;
-  }
-
-  const filtered = allSeeds.filter(seed =>
-    seed.month === selectedMonth
-  );
-
-  renderTable(filtered);
-
-});
-
-  // Setting the default as current month
-  const monthNames = [
-    "January", "February", "March", "April",
-    "May", "June", "July", "August",
-    "September", "October", "November", "December"
-  ];
-  
-  const currentMonth = monthNames[new Date().getMonth()];
-  
-  const monthFilter = document.getElementById("monthFilter");
-  
-  // Only set it if the option exists in the dropdown
-  if ([...monthFilter.options].some(opt => opt.value === currentMonth)) {
-    monthFilter.value = currentMonth;
-  }
-
 // Main call ------------------------
 const tbody = document.getElementById("seedTableBody");
 tbody.innerHTML = `
@@ -228,3 +194,37 @@ function renderTable(seeds) {
     tbody.appendChild(row);
   });
 }
+
+// Filter event listener ----------------------
+document.getElementById("monthFilter").addEventListener("change", function () {
+
+  const selectedMonth = this.value;
+
+  if (!selectedMonth) {
+    renderTable(allSeeds);
+    return;
+  }
+
+  const filtered = allSeeds.filter(seed =>
+    seed.month === selectedMonth
+  );
+
+  renderTable(filtered);
+
+});
+
+  // Setting the default as current month
+  const monthNames = [
+    "January", "February", "March", "April",
+    "May", "June", "July", "August",
+    "September", "October", "November", "December"
+  ];
+  
+  const currentMonth = monthNames[new Date().getMonth()];
+  
+  const monthFilter = document.getElementById("monthFilter");
+  
+  // Only set it if the option exists in the dropdown
+  if ([...monthFilter.options].some(opt => opt.value === currentMonth)) {
+    monthFilter.value = currentMonth;
+  }
