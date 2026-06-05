@@ -105,6 +105,8 @@ function closeMenu() {
 }
 
 // Main call ------------------------
+let allSeeds = [];
+const monthFilter = document.getElementById("monthFilter");
 const tbody = document.getElementById("seedTableBody");
 tbody.innerHTML = `
   <tr>
@@ -138,7 +140,6 @@ fetch("https://script.google.com/macros/s/AKfycbwYhaIIxax9_IjEqW6KlK8p7l2eMiB7zD
     return;
   }
 
-  let allSeeds = [];
   allSeeds = data.seeds;
   monthFilter.dispatchEvent(new Event("change"));
   renderTable(allSeeds);
@@ -220,10 +221,7 @@ document.getElementById("monthFilter").addEventListener("change", function () {
     "September", "October", "November", "December"
   ];
   
-  const currentMonth = monthNames[new Date().getMonth()];
-  
-  const monthFilter = document.getElementById("monthFilter");
-  
+  const currentMonth = monthNames[new Date().getMonth()];  
   // Only set it if the option exists in the dropdown
   if ([...monthFilter.options].some(opt => opt.value === currentMonth)) {
     monthFilter.value = currentMonth;
