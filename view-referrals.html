@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/png" href="https://loveyourself.ph/wp-content/uploads/2020/10/cropped-Favicon-LoveYourself.png">
+  <link rel="shortcut icon" href="https://loveyourself.ph/wp-content/uploads/2020/10/cropped-Favicon-LoveYourself.png">
+  <title>Registered Seeds</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div id="outerBox">
+
+  <div class="bannerContainer">
+    <img src="./assets/Lubrican Banner 3.png"
+         style="border-radius:12px; max-width:100%;">
+    <div id="hamburger">&#9776;</div>
+  </div>
+    
+  <!-- Overlay -->
+  <div id="overlay"></div>
+
+  <div id="sideMenu" class="sideMenu">
+  <a href="scanner.html">Seed QR Scanner</a>
+  <a href="registered-seeds.html">Registered Seeds</a>
+  <a href="#">Redemption</a>
+  </div>
+
+  <div class="topBar">
+  <div id="userGreeting"></div>
+  <button id="logoutBtn">Logout</button>
+  </div>
+  
+  <h2>Registered Seeds</h2>
+  
+  <div class="tableContainer">
+    <table class="seedTable">
+      <thead>
+        <tr>
+          <th>Seed ID</th>
+          <th>Seed Name</th>
+          <th>?</th>
+          <th>X</th>
+          <th>+</th>
+          <th>-></th>
+          <th>✓</th>
+          <th>ET</th>
+        </tr>
+      </thead>
+      <tbody id="seedTableBody">
+        <!-- dynamic rows -->
+      </tbody>
+    </table>
+  </div>
+
+</div>
+<div id="toast"></div>
+
+<script src="view-referrals.js"></script>
+
+</body>
+</html>
