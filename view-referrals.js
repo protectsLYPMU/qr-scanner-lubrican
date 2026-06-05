@@ -106,6 +106,19 @@ function closeMenu() {
 
 // Main call ------------------------
 let allSeeds = [];
+  // Setting the default as current month
+  const monthNames = [
+    "January", "February", "March", "April",
+    "May", "June", "July", "August",
+    "September", "October", "November", "December"
+  ];
+  
+  const currentMonth = monthNames[new Date().getMonth()];  
+  // Only set it if the option exists in the dropdown
+  if ([...monthFilter.options].some(opt => opt.value === currentMonth)) {
+    monthFilter.value = currentMonth;
+  }
+
 const monthFilter = document.getElementById("monthFilter");
 const tbody = document.getElementById("seedTableBody");
 tbody.innerHTML = `
@@ -142,7 +155,6 @@ fetch("https://script.google.com/macros/s/AKfycbwYhaIIxax9_IjEqW6KlK8p7l2eMiB7zD
 
   allSeeds = data.seeds;
   monthFilter.dispatchEvent(new Event("change"));
-  renderTable(allSeeds);
   
 })
 .catch(err => {
@@ -213,16 +225,3 @@ document.getElementById("monthFilter").addEventListener("change", function () {
   renderTable(filtered);
 
 });
-
-  // Setting the default as current month
-  const monthNames = [
-    "January", "February", "March", "April",
-    "May", "June", "July", "August",
-    "September", "October", "November", "December"
-  ];
-  
-  const currentMonth = monthNames[new Date().getMonth()];  
-  // Only set it if the option exists in the dropdown
-  if ([...monthFilter.options].some(opt => opt.value === currentMonth)) {
-    monthFilter.value = currentMonth;
-  }
