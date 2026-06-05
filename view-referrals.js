@@ -107,6 +107,7 @@ function closeMenu() {
 // Main call ------------------------
 let allSeeds = [];
 const monthFilter = document.getElementById("monthFilter");
+const tbody = document.getElementById("seedTableBody");
   // Setting the default as current month
   const monthNames = [
     "January", "February", "March", "April",
@@ -119,7 +120,7 @@ const monthFilter = document.getElementById("monthFilter");
   if ([...monthFilter.options].some(opt => opt.value === currentMonth)) {
     monthFilter.value = currentMonth;
   }
-const tbody = document.getElementById("seedTableBody");
+
 tbody.innerHTML = `
   <tr>
     <td colspan="8" style="text-align:center; padding:10px;">
@@ -153,7 +154,7 @@ fetch("https://script.google.com/macros/s/AKfycbwYhaIIxax9_IjEqW6KlK8p7l2eMiB7zD
   }
 
   allSeeds = data.seeds;
-  monthFilter.dispatchEvent(new Event("change"));
+  applyFilter();
   
 })
 .catch(err => {
@@ -208,9 +209,9 @@ function renderTable(seeds) {
 }
 
 // Filter event listener ----------------------
-document.getElementById("monthFilter").addEventListener("change", function () {
-
-  const selectedMonth = this.value;
+monthFilter.addEventListener("change", applyFilter);
+function applyFilter() {
+  const selectedMonth = monthFilter.value;
 
   if (!selectedMonth) {
     renderTable(allSeeds);
@@ -222,5 +223,4 @@ document.getElementById("monthFilter").addEventListener("change", function () {
   );
 
   renderTable(filtered);
-
-});
+}
