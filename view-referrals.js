@@ -72,6 +72,20 @@ document.getElementById("userGreeting").innerText =
   `Hello, ${localStorage.getItem("cbo") || "User"}!`;
   }
 
+  // Setting the default as current month
+const monthFilter = document.getElementById("monthFilter");
+const monthNames = [
+    "January", "February", "March", "April",
+    "May", "June", "July", "August",
+    "September", "October", "November", "December"
+  ];
+  
+  const currentMonth = monthNames[new Date().getMonth()];  
+  // Only set it if the option exists in the dropdown
+  if ([...monthFilter.options].some(opt => opt.value === currentMonth)) {
+    monthFilter.value = currentMonth;
+  }
+
   // logout button
   document.getElementById("logoutBtn").addEventListener("click", logout);
   
@@ -106,21 +120,7 @@ function closeMenu() {
 
 // Main call ------------------------
 let allSeeds = [];
-const monthFilter = document.getElementById("monthFilter");
 const tbody = document.getElementById("seedTableBody");
-  // Setting the default as current month
-  const monthNames = [
-    "January", "February", "March", "April",
-    "May", "June", "July", "August",
-    "September", "October", "November", "December"
-  ];
-  
-  const currentMonth = monthNames[new Date().getMonth()];  
-  // Only set it if the option exists in the dropdown
-  if ([...monthFilter.options].some(opt => opt.value === currentMonth)) {
-    monthFilter.value = currentMonth;
-  }
-
 tbody.innerHTML = `
   <tr>
     <td colspan="8" style="text-align:center; padding:10px;">
