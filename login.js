@@ -1,5 +1,38 @@
 document.body.style.display = "block"; // 👈 show page ONLY if valid
 
+function validateSessionOnLoad() {
+  const token = localStorage.getItem("sessionToken");
+
+  if (!token) {
+    ocument.body.style.display = "block";
+    return;
+  }
+
+  fetch("https://script.google.com/macros/s/AKfycbwYhaIIxax9_IjEqW6KlK8p7l2eMiB7zDhEJwI350SeEl-3oxt4T1WNnHn0VyUgmlFz/exec", {
+    method: "POST",
+    body: JSON.stringify({
+      action: "validateSession",
+      sessionToken: token
+    })
+  })
+  .then(res => res.json())
+  .then(res => {
+    if (!res.valid) {
+      localStorage.clear();
+      document.body.style.display = "block"; // 👈 show page ONLY if valid
+    } else {
+      window.location.href = "/qr-scanner-lubrican/scanner.html"
+    }
+  })
+  .catch(() => {
+    // fail-safe: if backend is unreachable, lock user out
+    localStorage.clear();
+    document.body.style.display = "block";
+  });
+}
+
+validateSessionOnLoad();
+
 console.log("login.js loaded");
 
 document.getElementById("loginBtn").addEventListener("click", loginUser);
