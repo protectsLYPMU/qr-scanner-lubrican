@@ -1,5 +1,3 @@
-document.body.style.display = "block"; // 👈 show page ONLY if valid
-
 function validateSessionOnLoad() {
   const token = localStorage.getItem("sessionToken");
 
