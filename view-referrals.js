@@ -104,11 +104,45 @@ function closeMenu() {
   overlay.classList.remove("show");
 }
 
+// Filter event listener ----------------------
+document.getElementById("monthFilter").addEventListener("change", function () {
+
+  const selectedMonth = this.value;
+
+  if (!selectedMonth) {
+    renderTable(allSeeds);
+    return;
+  }
+
+  const filtered = allSeeds.filter(seed =>
+    seed.month === selectedMonth
+  );
+
+  renderTable(filtered);
+
+});
+
+  // Setting the default as current month
+  const monthNames = [
+    "January", "February", "March", "April",
+    "May", "June", "July", "August",
+    "September", "October", "November", "December"
+  ];
+  
+  const currentMonth = monthNames[new Date().getMonth()];
+  
+  const monthFilter = document.getElementById("monthFilter");
+  
+  // Only set it if the option exists in the dropdown
+  if ([...monthFilter.options].some(opt => opt.value === currentMonth)) {
+    monthFilter.value = currentMonth;
+  }
+
 // Main call ------------------------
 const tbody = document.getElementById("seedTableBody");
 tbody.innerHTML = `
   <tr>
-    <td colspan="3" style="text-align:center; padding:10px;">
+    <td colspan="8" style="text-align:center; padding:10px;">
       Loading...
     </td>
   </tr>
@@ -138,25 +172,11 @@ fetch("https://script.google.com/macros/s/AKfycbwYhaIIxax9_IjEqW6KlK8p7l2eMiB7zD
     return;
   }
 
-  const tbody = document.getElementById("seedTableBody");
-  tbody.innerHTML = "";
-
-  data.seeds.forEach(seed => {
-    const row = document.createElement("tr");
-
-    row.innerHTML = `
-      <td>${seed.seedId}</td>
-      <td>${seed.name}</td>
-      <td>${seed.month}</td>
-      <td>${seed.pend}</td>
-      <td>${seed.app}</td>
-      <td>${seed.disap}</td>
-      <td>${seed.carry}</td>
-      <td>${seed.total}</td>
-      <td>${seed.tier}</td>
-    `;
-    tbody.appendChild(row);
-  });
+  let allSeeds = [];
+  allSeeds = data.seeds;
+  monthFilter.dispatchEvent(new Event("change"));
+  renderTable(allSeeds);
+  
 })
 .catch(err => {
   console.error(err);
@@ -172,4 +192,39 @@ function showToast(message, duration = 3000) {
   setTimeout(() => {
     toast.classList.remove("show");
   }, duration);
+}
+
+// Render Table
+function renderTable(seeds) {
+  const tbody = document.getElementById("seedTableBody");
+
+  tbody.innerHTML = "";
+
+  if (seeds.length === 0) {
+    tbody.innerHTML = `
+      <tr>
+        <td colspan="8" style="text-align:center; padding:10px;">
+          No Match
+        </td>
+      </tr>
+    `;
+    return;
+  }
+
+  seeds.forEach(seed => {
+    const row = document.createElement("tr");
+
+    row.innerHTML = `
+      <td>${seed.seedId}</td>
+      <td>${seed.name}</td>
+      <td>${seed.pend}</td>
+      <td>${seed.app}</td>
+      <td>${seed.disap}</td>
+      <td>${seed.carry}</td>
+      <td>${seed.total}</td>
+      <td>${seed.tier}</td>
+    `;
+
+    tbody.appendChild(row);
+  });
 }
