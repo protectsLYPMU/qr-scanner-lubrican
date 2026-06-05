@@ -106,6 +106,7 @@ function closeMenu() {
 
 // Main call ------------------------
 let allSeeds = [];
+const monthFilter = document.getElementById("monthFilter");
   // Setting the default as current month
   const monthNames = [
     "January", "February", "March", "April",
@@ -118,8 +119,6 @@ let allSeeds = [];
   if ([...monthFilter.options].some(opt => opt.value === currentMonth)) {
     monthFilter.value = currentMonth;
   }
-
-const monthFilter = document.getElementById("monthFilter");
 const tbody = document.getElementById("seedTableBody");
 tbody.innerHTML = `
   <tr>
