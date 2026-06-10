@@ -2,7 +2,7 @@ function validateSessionOnLoad() {
   const token = localStorage.getItem("sessionToken");
 
   if (!token) {
-    ocument.body.style.display = "block";
+    document.body.style.display = "block";
     return;
   }
 
